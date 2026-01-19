@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🐚 Reverse Shell Generator | Red Team Tool</title>
+    <meta name="description" content="CTF ve Penetration Testing için profesyonel Reverse Shell Generator aracı">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <!-- Background Animation -->
+    <div class="bg-animation">
+        <div class="floating-orb orb-1"></div>
+        <div class="floating-orb orb-2"></div>
+        <div class="floating-orb orb-3"></div>
+    </div>
+
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="logo">
+                <span class="logo-icon">🐚</span>
+                <div class="logo-text">
+                    <h1>Reverse Shell Generator</h1>
+                    <span class="tagline">Red Team & CTF Toolkit</span>
+                </div>
+            </div>
+            <div class="header-badges">
+                <span class="badge badge-red">Offensive Security</span>
+                <span class="badge badge-purple">v1.0</span>
+            </div>
+        </header>
+
+        <!-- Input Section -->
+        <section class="input-section glass-card">
+            <h2 class="section-title">
+                <span class="icon">⚙️</span>
+                Konfigürasyon
+            </h2>
+
+            <div class="input-grid">
+                <div class="input-group">
+                    <label for="ip">
+                        <span class="icon">🌐</span>
+                        IP Adresi (LHOST)
+                    </label>
+                    <input type="text" id="ip" placeholder="10.10.14.5" value="10.10.14.5">
+                </div>
+
+                <div class="input-group">
+                    <label for="port">
+                        <span class="icon">🔌</span>
+                        Port (LPORT)
+                    </label>
+                    <input type="number" id="port" placeholder="4444" value="4444" min="1" max="65535">
+                </div>
+
+                <div class="input-group">
+                    <label for="shell">
+                        <span class="icon">💻</span>
+                        Shell Türü
+                    </label>
+                    <select id="shell">
+                        <option value="/bin/bash">/bin/bash</option>
+                        <option value="/bin/sh">/bin/sh</option>
+                        <option value="/bin/zsh">/bin/zsh</option>
+                        <option value="cmd.exe">cmd.exe</option>
+                        <option value="powershell.exe">powershell.exe</option>
+                    </select>
+                </div>
+
+                <div class="input-group">
+                    <label for="encoding">
+                        <span class="icon">🔐</span>
+                        Encoding
+                    </label>
+                    <select id="encoding">
+                        <option value="none">Raw (Encoding Yok)</option>
+                        <option value="base64">Base64</option>
+                        <option value="url">URL Encode</option>
+                        <option value="double-url">Double URL Encode</option>
+                    </select>
+                </div>
+            </div>
+
+            <button class="generate-btn" onclick="generateAllShells()">
+                <span class="btn-icon">⚡</span>
+                Payload'ları Oluştur
+            </button>
+        </section>
+
+        <!-- Listener Section -->
+        <section class="listener-section glass-card">
+            <h2 class="section-title">
+                <span class="icon">👂</span>
+                Listener Komutları
+            </h2>
+
+            <div class="listener-grid">
+                <div class="listener-item">
+                    <div class="listener-header">
+                        <span class="listener-name">Netcat</span>
+                        <button class="copy-btn" onclick="copyToClipboard(this, 'nc-listener')">
+                            <span class="copy-icon">📋</span>
+                            Kopyala
+                        </button>
+                    </div>
+                    <code id="nc-listener" class="listener-code">nc -lvnp 4444</code>
+                </div>
+
+                <div class="listener-item">
+                    <div class="listener-header">
+                        <span class="listener-name">Netcat (rlwrap)</span>
+                        <button class="copy-btn" onclick="copyToClipboard(this, 'rlwrap-listener')">
+                            <span class="copy-icon">📋</span>
+                            Kopyala
+                        </button>
+                    </div>
+                    <code id="rlwrap-listener" class="listener-code">rlwrap nc -lvnp 4444</code>
+                </div>
+
+                <div class="listener-item">
+                    <div class="listener-header">
+                        <span class="listener-name">Socat</span>
+                        <button class="copy-btn" onclick="copyToClipboard(this, 'socat-listener')">
+                            <span class="copy-icon">📋</span>
+                            Kopyala
+                        </button>
+                    </div>
+                    <code id="socat-listener" class="listener-code">socat -d -d TCP-LISTEN:4444 STDOUT</code>
+                </div>
+
+                <div class="listener-item">
+                    <div class="listener-header">
+                        <span class="listener-name">Pwncat</span>
+                        <button class="copy-btn" onclick="copyToClipboard(this, 'pwncat-listener')">
+                            <span class="copy-icon">📋</span>
+                            Kopyala
+                        </button>
+                    </div>
+                    <code id="pwncat-listener" class="listener-code">pwncat-cs -lp 4444</code>
+                </div>
+            </div>
+        </section>
+
+        <!-- Payloads Section -->
+        <section class="payloads-section">
+            <h2 class="section-title main-title">
+                <span class="icon">💀</span>
+                Reverse Shell Payloads
+            </h2>
+
+            <!-- Search Box -->
+            <div class="search-container">
+                <div class="search-box">
+                    <span class="search-icon">🔍</span>
+                    <input type="text" id="search-input" placeholder="Payload ara... (örn: python, bash, php, meterpreter)">
+                    <button class="clear-search" id="clear-search" onclick="clearSearch()">✕</button>
+                </div>
+                <span class="search-results" id="search-results"></span>
+            </div>
+
+            <!-- Category Tabs -->
+            <div class="category-tabs">
+                <button class="tab-btn active" data-category="all">Tümü</button>
+                <button class="tab-btn" data-category="linux">Linux</button>
+                <button class="tab-btn" data-category="windows">Windows</button>
+                <button class="tab-btn" data-category="web">Web</button>
+                <button class="tab-btn" data-category="msfvenom">MSFVenom</button>
+            </div>
+
+            <!-- Payloads Grid -->
+            <div class="payloads-grid" id="payloads-container">
+                <!-- Payloads will be generated here -->
+            </div>
+        </section>
+
+        <!-- Shell Upgrade Section -->
+        <section class="upgrade-section glass-card">
+            <h2 class="section-title">
+                <span class="icon">⬆️</span>
+                Shell Upgrade (TTY)
+            </h2>
+
+            <div class="upgrade-grid">
+                <div class="upgrade-item">
+                    <div class="upgrade-header">
+                        <span class="upgrade-name">Python PTY</span>
+                        <button class="copy-btn" onclick="copyToClipboard(this, 'python-pty')">
+                            <span class="copy-icon">📋</span>
+                            Kopyala
+                        </button>
+                    </div>
+                    <code id="python-pty" class="upgrade-code">python3 -c 'import pty;pty.spawn("/bin/bash")'</code>
+                </div>
+
+                <div class="upgrade-item">
+                    <div class="upgrade-header">
+                        <span class="upgrade-name">Script</span>
+                        <button class="copy-btn" onclick="copyToClipboard(this, 'script-pty')">
+                            <span class="copy-icon">📋</span>
+                            Kopyala
+                        </button>
+                    </div>
+                    <code id="script-pty" class="upgrade-code">script /dev/null -c bash</code>
+                </div>
+
+                <div class="upgrade-item">
+                    <div class="upgrade-header">
+                        <span class="upgrade-name">Stty Raw</span>
+                        <button class="copy-btn" onclick="copyToClipboard(this, 'stty-raw')">
+                            <span class="copy-icon">📋</span>
+                            Kopyala
+                        </button>
+                    </div>
+                    <code id="stty-raw" class="upgrade-code">stty raw -echo; fg</code>
+                </div>
+
+                <div class="upgrade-item">
+                    <div class="upgrade-header">
+                        <span class="upgrade-name">Export Term</span>
+                        <button class="copy-btn" onclick="copyToClipboard(this, 'export-term')">
+                            <span class="copy-icon">📋</span>
+                            Kopyala
+                        </button>
+                    </div>
+                    <code id="export-term" class="upgrade-code">export TERM=xterm-256color</code>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>🔴 Red Team Toolkit | CTF & Penetration Testing</p>
+            <p class="disclaimer">⚠️ Bu araç sadece yasal ve yetkili güvenlik testleri için kullanılmalıdır.</p>
+        </footer>
+    </div>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="toast">
+        <span class="toast-icon">✅</span>
+        <span class="toast-text">Panoya kopyalandı!</span>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
