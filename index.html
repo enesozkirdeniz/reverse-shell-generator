@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="tr">
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>🐚 Reverse Shell Generator | Red Team Tool</title>
-    <meta name="description" content="CTF ve Penetration Testing için profesyonel Reverse Shell Generator aracı">
+    <meta name="description" content="Professional Reverse Shell Generator tool for CTF and Penetration Testing">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
@@ -43,14 +43,14 @@
         <section class="input-section glass-card">
             <h2 class="section-title">
                 <span class="icon">⚙️</span>
-                Konfigürasyon
+                Configuration
             </h2>
 
             <div class="input-grid">
                 <div class="input-group">
                     <label for="ip">
                         <span class="icon">🌐</span>
-                        IP Adresi (LHOST)
+                        IP Address (LHOST)
                     </label>
                     <input type="text" id="ip" placeholder="10.10.14.5" value="10.10.14.5">
                 </div>
@@ -66,7 +66,7 @@
                 <div class="input-group">
                     <label for="shell">
                         <span class="icon">💻</span>
-                        Shell Türü
+                        Shell Type
                     </label>
                     <select id="shell">
                         <option value="/bin/bash">/bin/bash</option>
@@ -83,7 +83,7 @@
                         Encoding
                     </label>
                     <select id="encoding">
-                        <option value="none">Raw (Encoding Yok)</option>
+                        <option value="none">Raw (No Encoding)</option>
                         <option value="base64">Base64</option>
                         <option value="url">URL Encode</option>
                         <option value="double-url">Double URL Encode</option>
@@ -93,7 +93,7 @@
 
             <button class="generate-btn" onclick="generateAllShells()">
                 <span class="btn-icon">⚡</span>
-                Payload'ları Oluştur
+                Generate Payloads
             </button>
         </section>
 
@@ -101,7 +101,7 @@
         <section class="listener-section glass-card">
             <h2 class="section-title">
                 <span class="icon">👂</span>
-                Listener Komutları
+                Listener Commands
             </h2>
 
             <div class="listener-grid">
@@ -110,7 +110,7 @@
                         <span class="listener-name">Netcat</span>
                         <button class="copy-btn" onclick="copyToClipboard(this, 'nc-listener')">
                             <span class="copy-icon">📋</span>
-                            Kopyala
+                            Copy
                         </button>
                     </div>
                     <code id="nc-listener" class="listener-code">nc -lvnp 4444</code>
@@ -121,7 +121,7 @@
                         <span class="listener-name">Netcat (rlwrap)</span>
                         <button class="copy-btn" onclick="copyToClipboard(this, 'rlwrap-listener')">
                             <span class="copy-icon">📋</span>
-                            Kopyala
+                            Copy
                         </button>
                     </div>
                     <code id="rlwrap-listener" class="listener-code">rlwrap nc -lvnp 4444</code>
@@ -132,7 +132,7 @@
                         <span class="listener-name">Socat</span>
                         <button class="copy-btn" onclick="copyToClipboard(this, 'socat-listener')">
                             <span class="copy-icon">📋</span>
-                            Kopyala
+                            Copy
                         </button>
                     </div>
                     <code id="socat-listener" class="listener-code">socat -d -d TCP-LISTEN:4444 STDOUT</code>
@@ -143,7 +143,7 @@
                         <span class="listener-name">Pwncat</span>
                         <button class="copy-btn" onclick="copyToClipboard(this, 'pwncat-listener')">
                             <span class="copy-icon">📋</span>
-                            Kopyala
+                            Copy
                         </button>
                     </div>
                     <code id="pwncat-listener" class="listener-code">pwncat-cs -lp 4444</code>
@@ -162,7 +162,8 @@
             <div class="search-container">
                 <div class="search-box">
                     <span class="search-icon">🔍</span>
-                    <input type="text" id="search-input" placeholder="Payload ara... (örn: python, bash, php, meterpreter)">
+                    <input type="text" id="search-input"
+                        placeholder="Search payloads... (e.g., python, bash, php, meterpreter)">
                     <button class="clear-search" id="clear-search" onclick="clearSearch()">✕</button>
                 </div>
                 <span class="search-results" id="search-results"></span>
@@ -170,7 +171,7 @@
 
             <!-- Category Tabs -->
             <div class="category-tabs">
-                <button class="tab-btn active" data-category="all">Tümü</button>
+                <button class="tab-btn active" data-category="all">All</button>
                 <button class="tab-btn" data-category="linux">Linux</button>
                 <button class="tab-btn" data-category="windows">Windows</button>
                 <button class="tab-btn" data-category="web">Web</button>
@@ -196,7 +197,7 @@
                         <span class="upgrade-name">Python PTY</span>
                         <button class="copy-btn" onclick="copyToClipboard(this, 'python-pty')">
                             <span class="copy-icon">📋</span>
-                            Kopyala
+                            Copy
                         </button>
                     </div>
                     <code id="python-pty" class="upgrade-code">python3 -c 'import pty;pty.spawn("/bin/bash")'</code>
@@ -207,7 +208,7 @@
                         <span class="upgrade-name">Script</span>
                         <button class="copy-btn" onclick="copyToClipboard(this, 'script-pty')">
                             <span class="copy-icon">📋</span>
-                            Kopyala
+                            Copy
                         </button>
                     </div>
                     <code id="script-pty" class="upgrade-code">script /dev/null -c bash</code>
@@ -218,7 +219,7 @@
                         <span class="upgrade-name">Stty Raw</span>
                         <button class="copy-btn" onclick="copyToClipboard(this, 'stty-raw')">
                             <span class="copy-icon">📋</span>
-                            Kopyala
+                            Copy
                         </button>
                     </div>
                     <code id="stty-raw" class="upgrade-code">stty raw -echo; fg</code>
@@ -229,7 +230,7 @@
                         <span class="upgrade-name">Export Term</span>
                         <button class="copy-btn" onclick="copyToClipboard(this, 'export-term')">
                             <span class="copy-icon">📋</span>
-                            Kopyala
+                            Copy
                         </button>
                     </div>
                     <code id="export-term" class="upgrade-code">export TERM=xterm-256color</code>
@@ -240,14 +241,15 @@
         <!-- Footer -->
         <footer class="footer">
             <p>🔴 Red Team Toolkit | CTF & Penetration Testing</p>
-            <p class="disclaimer">⚠️ Bu araç sadece yasal ve yetkili güvenlik testleri için kullanılmalıdır.</p>
+            <p class="disclaimer">⚠️ This tool is intended for authorized security testing and educational purposes
+                only.</p>
         </footer>
     </div>
 
     <!-- Toast Notification -->
     <div class="toast" id="toast">
         <span class="toast-icon">✅</span>
-        <span class="toast-text">Panoya kopyalandı!</span>
+        <span class="toast-text">Copied to clipboard!</span>
     </div>
 
     <script src="script.js"></script>

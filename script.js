@@ -442,7 +442,7 @@ function copyToClipboard(button, elementId) {
     .then(() => {
       // Show success state
       button.classList.add("copied");
-      button.innerHTML = '<span class="copy-icon">✅</span> Kopyalandı!';
+      button.innerHTML = '<span class="copy-icon">✅</span> Copied!';
 
       // Show toast
       showToast();
@@ -450,7 +450,7 @@ function copyToClipboard(button, elementId) {
       // Reset button after 2 seconds
       setTimeout(() => {
         button.classList.remove("copied");
-        button.innerHTML = '<span class="copy-icon">📋</span> Kopyala';
+        button.innerHTML = '<span class="copy-icon">📋</span> Copy';
       }, 2000);
     })
     .catch((err) => {
@@ -581,7 +581,7 @@ function updateSearchResults(visible, total) {
     const searchTerm = searchInput.value.trim();
     
     if (searchTerm.length > 0) {
-      resultsEl.innerHTML = `<span class="count">${visible}</span> / ${total} payload gösteriliyor`;
+      resultsEl.innerHTML = `<span class="count">${visible}</span> / ${total} payloads shown`;
     } else {
       resultsEl.innerHTML = "";
     }

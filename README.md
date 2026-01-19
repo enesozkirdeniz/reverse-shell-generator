@@ -104,7 +104,7 @@ Then visit `http://localhost:8080`
    - Use search box to find specific payloads
 
 4. **Copy & Use**
-   - Click "Kopyala" button to copy payload
+   - Click "Copy" button to copy payload
    - Set up listener using provided commands
    - Execute payload on target
 
@@ -238,4 +238,3 @@ If this project helped you, please give it a ⭐ on GitHub!
 Made with ❤️ for the cybersecurity community
 
 </div>
-# reverse-shell-generator
